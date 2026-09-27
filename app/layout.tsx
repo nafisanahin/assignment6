@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Oswald } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
+import { PlanProvider } from "./context/PlanContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,7 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${oswald.variable}`}>{children}</body>
+      <body className={`${inter.variable} ${oswald.variable}`}>
+        <PlanProvider>{children}</PlanProvider>
+
+        <ToastContainer position="bottom-right" autoClose={2000} theme="dark" />
+      </body>
     </html>
   );
 }

@@ -1,3 +1,7 @@
+import Navbar from "@/app/components/Navbar";
+import { CiBookmark } from "react-icons/ci";
+import { MdCheckBoxOutlineBlank } from "react-icons/md";
+
 type WorkoutDetailsProps = {
   params: Promise<{
     id: string;
@@ -10,12 +14,13 @@ type Workout = {
   image: string;
   muscleGroups: string[];
   equipment: string;
+  difficulty: string;
+  sets: number;
+  reps: string;
   duration: number;
   calories: number;
   rating: number;
   description: string;
-  sets: number;
-  reps: number;
   instructions: string[];
 };
 
@@ -27,48 +32,162 @@ export default async function WorkoutDetails({ params }: WorkoutDetailsProps) {
   const workout: Workout = await response.json();
 
   return (
-    <main className="min-h-screen bg-black px-6 py-16 text-white">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 md:grid-cols-2">
-          {/* Image */}
-          <div className="overflow-hidden rounded-3xl bg-[#222630]">
-            <img
-              src={workout.image}
-              alt={workout.name}
-              className="h-full min-h-[400px] w-full object-cover"
-            />
-          </div>
+    <>
+      <Navbar />
 
-          {/* Workout Info */}
-          <div className="flex flex-col justify-center">
-            {/* Categories */}
-            <div className="mb-5 flex flex-wrap gap-2">
-              {workout.muscleGroups.map((muscle) => (
-                <span
-                  key={muscle}
-                  className="rounded-full bg-[#CCFF00] px-3 py-1 text-xs font-black uppercase text-black"
-                >
-                  {muscle}
-                </span>
-              ))}
+      <main className="min-h-screen bg-[#0f1014] px-5 py-10 text-white md:px-8 lg:py-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+            {/* LEFT - IMAGE */}
+            <div className="overflow-hidden rounded-2xl">
+              <img
+                src={workout.image}
+                alt={workout.name}
+                className="h-full min-h-[500px] w-full object-cover lg:min-h-[680px]"
+              />
             </div>
 
-            <h1 className="text-5xl font-black uppercase leading-tight md:text-6xl">
-              {workout.name}
-            </h1>
+            {/* RIGHT - CONTENT */}
+            <div className="flex flex-col">
+              {/* Title + Description */}
+              <div>
+                <h1 className="text-4xl font-black uppercase leading-none tracking-tight text-white sm:text-5xl">
+                  {workout.name}
+                </h1>
 
-            <p className="mt-5 max-w-xl text-base leading-7 text-white/60">
-              {workout.description}
-            </p>
+                <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70 sm:text-base">
+                  {workout.description}
+                </p>
+              </div>
 
-            <p className="mt-6 text-sm font-bold uppercase text-white/50">
-              Equipment
-            </p>
+              {/* Muscle Groups */}
+              <div className="mt-5 flex flex-wrap gap-2">
+                {workout.muscleGroups.map((muscle) => (
+                  <span
+                    key={muscle}
+                    className="rounded-full bg-[#CCFF00] px-3 py-1 text-xs font-bold text-black"
+                  >
+                    {muscle}
+                  </span>
+                ))}
+              </div>
 
-            <p className="mt-1 text-lg font-bold">{workout.equipment}</p>
+              {/* Workout Specs */}
+              <div className="mt-7 overflow-hidden rounded-2xl border border-white/10 bg-[#171920]">
+                {/* Equipment */}
+                <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                  <span className="text-xs font-bold uppercase text-white/60">
+                    Equipment
+                  </span>
+
+                  <span className="text-sm font-bold text-white">
+                    {workout.equipment}
+                  </span>
+                </div>
+
+                {/* Difficulty */}
+                <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                  <span className="text-xs font-bold uppercase text-white/60">
+                    Difficulty
+                  </span>
+
+                  <span className="text-sm font-bold text-white">
+                    {workout.difficulty}
+                  </span>
+                </div>
+
+                {/* Sets */}
+                <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                  <span className="text-xs font-bold uppercase text-white/60">
+                    Sets
+                  </span>
+
+                  <span className="text-sm font-bold text-white">
+                    {workout.sets}
+                  </span>
+                </div>
+
+                {/* Reps */}
+                <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                  <span className="text-xs font-bold uppercase text-white/60">
+                    Reps
+                  </span>
+
+                  <span className="text-sm font-bold text-white">
+                    {workout.reps}
+                  </span>
+                </div>
+
+                {/* Duration */}
+                <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                  <span className="text-xs font-bold uppercase text-white/60">
+                    Duration
+                  </span>
+
+                  <span className="text-sm font-bold text-white">
+                    {workout.duration} min
+                  </span>
+                </div>
+
+                {/* Calories */}
+                <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                  <span className="text-xs font-bold uppercase text-white/60">
+                    Calories
+                  </span>
+
+                  <span className="text-sm font-bold text-white">
+                    {workout.calories} kcal
+                  </span>
+                </div>
+
+                {/* Rating */}
+                <div className="flex items-center justify-between px-5 py-4">
+                  <span className="text-xs font-bold uppercase text-white/60">
+                    Rating
+                  </span>
+
+                  <span className="text-sm font-bold text-white">
+                    {workout.rating}
+                  </span>
+                </div>
+              </div>
+
+              {/* Instructions */}
+              <div className="mt-8">
+                <h2 className="text-lg font-black uppercase">Instructions</h2>
+
+                <ol className="mt-4 space-y-4">
+                  {workout.instructions.map((instruction, index) => (
+                    <li
+                      key={index}
+                      className="flex gap-3 text-sm leading-6 text-white/75"
+                    >
+                      <span className="shrink-0 text-white/50">
+                        {index + 1}.
+                      </span>
+
+                      <span>{instruction}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="mt-8 flex flex-wrap gap-3">
+                <button className="inline-flex items-center gap-2 rounded-xl bg-[#CCFF00] px-5 py-3 text-sm font-black text-black transition hover:brightness-95">
+                  <MdCheckBoxOutlineBlank size={20} />
+                  Add to today's plan
+                </button>
+
+                <button className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-transparent px-5 py-3 text-sm font-bold text-white transition hover:bg-white/5">
+                  <CiBookmark size={20} />
+                  Save for later
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
