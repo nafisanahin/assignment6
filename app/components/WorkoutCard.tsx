@@ -1,3 +1,4 @@
+import Link from "next/link";
 type Workout = {
   id: string;
   name: string;
@@ -15,7 +16,10 @@ type WorkoutCardProps = {
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
   return (
-    <article className="overflow-hidden rounded-2xl bg-[#222630]">
+    <Link
+      href={`/workout/${workout.id}`}
+      className="block overflow-hidden rounded-2xl bg-[#222630]"
+    >
       {/* Image */}
       <div className="h-56 overflow-hidden">
         <img
@@ -52,6 +56,6 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
           <span>★ {workout.rating}</span>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

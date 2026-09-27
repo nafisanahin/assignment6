@@ -17,7 +17,6 @@ type Workout = {
 export default function Library() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState("duration");
 
   useEffect(() => {
     fetch("https://api.abcz.workers.dev/api/fitlog")
@@ -31,22 +30,6 @@ export default function Library() {
         setLoading(false);
       });
   }, []);
-
-  const sortedWorkouts = [...workouts].sort((a, b) => {
-    if (sortBy === "duration") {
-      return a.duration - b.duration;
-    }
-
-    if (sortBy === "calories") {
-      return a.calories - b.calories;
-    }
-
-    if (sortBy === "rating") {
-      return b.rating - a.rating;
-    }
-
-    return 0;
-  });
 
   return (
     <section id="library" className="bg-black px-6 py-16">
@@ -64,26 +47,13 @@ export default function Library() {
             Explore workouts built to help you train with purpose and track
             every set.
           </p>
-
-          {/* Sort dropdown */}
-          <div className="mt-6">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="rounded-lg border border-white/10 bg-[#222630] px-4 py-3 text-sm font-bold text-white outline-none"
-            >
-              <option value="duration">Duration</option>
-              <option value="calories">Calories</option>
-              <option value="rating">Rating</option>
-            </select>
-          </div>
         </div>
 
         {loading && <p className="text-white/60">Loading workouts...</p>}
 
         {!loading && (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {sortedWorkouts.map((workout) => (
+            {workouts.map((workout) => (
               <WorkoutCard key={workout.id} workout={workout} />
             ))}
           </div>
