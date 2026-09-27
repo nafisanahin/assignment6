@@ -1,7 +1,7 @@
 "use client";
 
-import WorkoutCard from "./WorkoutCard";
 import { useEffect, useState } from "react";
+import WorkoutCard from "./WorkoutCard";
 
 type Workout = {
   id: string;
@@ -34,6 +34,7 @@ export default function Library() {
   return (
     <section id="library" className="bg-black px-6 py-16">
       <div className="mx-auto max-w-7xl">
+        {/* Library Heading */}
         <div className="mb-10">
           <p className="mb-3 text-xs font-bold tracking-[0.25em] text-[#CCFF00]">
             WORKOUTS
@@ -49,8 +50,10 @@ export default function Library() {
           </p>
         </div>
 
+        {/* Loading */}
         {loading && <p className="text-white/60">Loading workouts...</p>}
 
+        {/* Workout Cards */}
         {!loading && (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {workouts.map((workout) => (
