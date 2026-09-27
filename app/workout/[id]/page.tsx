@@ -1,6 +1,6 @@
 import Navbar from "@/app/components/Navbar";
 import { CiBookmark } from "react-icons/ci";
-import { MdCheckBoxOutlineBlank } from "react-icons/md";
+import WorkoutActions from "@/app/components/WorkoutActions";
 
 type WorkoutDetailsProps = {
   params: Promise<{
@@ -18,7 +18,7 @@ type Workout = {
   sets: number;
   reps: string;
   duration: number;
-  calories: number;
+  caloriesBurned: number;
   rating: number;
   description: string;
   instructions: string[];
@@ -27,7 +27,9 @@ type Workout = {
 export default async function WorkoutDetails({ params }: WorkoutDetailsProps) {
   const { id } = await params;
 
-  const response = await fetch(`https://api.abcz.workers.dev/api/fitlog/${id}`);
+  const response = await fetch(
+    `https://api.abcz.workers.dev/api/fitlog/${id}`
+  );
 
   const workout: Workout = await response.json();
 
@@ -136,7 +138,7 @@ export default async function WorkoutDetails({ params }: WorkoutDetailsProps) {
                   </span>
 
                   <span className="text-sm font-bold text-white">
-                    {workout.calories} kcal
+                    {workout.caloriesBurned} kcal
                   </span>
                 </div>
 
@@ -174,10 +176,7 @@ export default async function WorkoutDetails({ params }: WorkoutDetailsProps) {
 
               {/* Action Buttons */}
               <div className="mt-8 flex flex-wrap gap-3">
-                <button className="inline-flex items-center gap-2 rounded-xl bg-[#CCFF00] px-5 py-3 text-sm font-black text-black transition hover:brightness-95">
-                  <MdCheckBoxOutlineBlank size={20} />
-                  Add to today's plan
-                </button>
+                <WorkoutActions workout={workout} />
 
                 <button className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-transparent px-5 py-3 text-sm font-bold text-white transition hover:bg-white/5">
                   <CiBookmark size={20} />

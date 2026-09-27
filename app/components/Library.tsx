@@ -10,7 +10,7 @@ type Workout = {
   muscleGroups: string[];
   equipment: string;
   duration: number;
-  calories: number;
+  caloriesBurned: number;
   rating: number;
 };
 

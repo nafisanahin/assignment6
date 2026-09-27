@@ -6,7 +6,7 @@ type Workout = {
   muscleGroups: string[];
   equipment: string;
   duration: number;
-  calories: number;
+  caloriesBurned: number;
   rating: number;
 };
 
@@ -52,7 +52,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
         {/* Stats */}
         <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4 text-xs font-bold text-white/60">
           <span>{workout.duration} MIN</span>
-          <span>{workout.calories} CAL</span>
+          <span>{workout.caloriesBurned} CALL</span>
           <span>★ {workout.rating}</span>
         </div>
       </div>
