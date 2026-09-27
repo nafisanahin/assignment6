@@ -1,5 +1,6 @@
 "use client";
 
+import WorkoutCard from "./WorkoutCard";
 import { useEffect, useState } from "react";
 
 type Workout = {
@@ -51,7 +52,11 @@ export default function Library() {
         {loading && <p className="text-white/60">Loading workouts...</p>}
 
         {!loading && (
-          <p className="text-white">{workouts.length} workouts loaded</p>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {workouts.map((workout) => (
+              <WorkoutCard key={workout.id} workout={workout} />
+            ))}
+          </div>
         )}
       </div>
     </section>
