@@ -1,6 +1,6 @@
 import Navbar from "@/app/components/Navbar";
-import { CiBookmark } from "react-icons/ci";
 import WorkoutActions from "@/app/components/WorkoutActions";
+import SaveWorkoutButton from "@/app/components/SaveWorkoutButton";
 
 type WorkoutDetailsProps = {
   params: Promise<{
@@ -27,9 +27,7 @@ type Workout = {
 export default async function WorkoutDetails({ params }: WorkoutDetailsProps) {
   const { id } = await params;
 
-  const response = await fetch(
-    `https://api.abcz.workers.dev/api/fitlog/${id}`
-  );
+  const response = await fetch(`https://api.abcz.workers.dev/api/fitlog/${id}`);
 
   const workout: Workout = await response.json();
 
@@ -177,11 +175,7 @@ export default async function WorkoutDetails({ params }: WorkoutDetailsProps) {
               {/* Action Buttons */}
               <div className="mt-8 flex flex-wrap gap-3">
                 <WorkoutActions workout={workout} />
-
-                <button className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-transparent px-5 py-3 text-sm font-bold text-white transition hover:bg-white/5">
-                  <CiBookmark size={20} />
-                  Save for later
-                </button>
+                <SaveWorkoutButton workout={workout} />
               </div>
             </div>
           </div>

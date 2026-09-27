@@ -52,19 +52,13 @@ export function PlanProvider({ children }: { children: React.ReactNode }) {
     setLoaded(true);
   }, []);
 
-  // Save plan only after localStorage has been loaded
+  // Save data to localStorage after loading
   useEffect(() => {
     if (!loaded) return;
 
     localStorage.setItem("fitlog-plan", JSON.stringify(plan));
-  }, [plan, loaded]);
-
-  // Save saved workouts only after localStorage has been loaded
-  useEffect(() => {
-    if (!loaded) return;
-
     localStorage.setItem("fitlog-saved", JSON.stringify(saved));
-  }, [saved, loaded]);
+  }, [plan, saved, loaded]);
 
   const addToPlan = (workout: Workout) => {
     setPlan((currentPlan) => {
@@ -98,9 +92,9 @@ export function PlanProvider({ children }: { children: React.ReactNode }) {
 
   const addToSaved = (workout: Workout) => {
     setSaved((currentSaved) => {
-      const alreadyExists = currentSaved.some((item) => item.id === workout.id);
+      const alreadySaved = currentSaved.some((item) => item.id === workout.id);
 
-      if (alreadyExists) {
+      if (alreadySaved) {
         return currentSaved;
       }
 

@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { HiMenu, HiX } from "react-icons/hi";
 import { usePlan } from "../context/PlanContext";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { plan } = usePlan();
+  const pathname = usePathname();
+  const { plan, saved } = usePlan();
 
   return (
     <nav className="border-b border-white/10 bg-black">
@@ -17,14 +19,25 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-8 md:flex">
-          <a href="/" className="text-sm font-bold text-[#CCFF00]">
+        <div className="hidden items-center gap-2 md:flex">
+          <a
+            href="/"
+            className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
+              pathname === "/"
+                ? "bg-[#222630] text-[#CCFF00]"
+                : "text-white hover:text-[#CCFF00]"
+            }`}
+          >
             WORKOUT
           </a>
 
           <a
             href="/my-plan"
-            className="text-sm font-bold text-white transition hover:text-[#CCFF00]"
+            className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
+              pathname === "/my-plan"
+                ? "bg-[#222630] text-[#CCFF00]"
+                : "text-white hover:text-[#CCFF00]"
+            }`}
           >
             MY PLAN
           </a>
@@ -43,7 +56,7 @@ export default function Navbar() {
             href="/my-plan"
             className="rounded-full border border-white/30 px-4 py-2 text-xs font-black text-white"
           >
-            SAVED 0
+            SAVED {saved.length}
           </a>
         </div>
 
@@ -63,7 +76,11 @@ export default function Navbar() {
           <div className="flex flex-col gap-5">
             <a
               href="/"
-              className="text-sm font-bold text-[#CCFF00]"
+              className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
+                pathname === "/"
+                  ? "bg-[#222630] text-[#CCFF00]"
+                  : "text-white hover:text-[#CCFF00]"
+              }`}
               onClick={() => setMenuOpen(false)}
             >
               WORKOUT
@@ -71,7 +88,11 @@ export default function Navbar() {
 
             <a
               href="/my-plan"
-              className="text-sm font-bold text-white"
+              className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
+                pathname === "/my-plan"
+                  ? "bg-[#222630] text-[#CCFF00]"
+                  : "text-white hover:text-[#CCFF00]"
+              }`}
               onClick={() => setMenuOpen(false)}
             >
               MY PLAN
@@ -89,7 +110,7 @@ export default function Navbar() {
                 href="/my-plan"
                 className="rounded-full border border-white/30 px-4 py-2 text-xs font-black text-white"
               >
-                SAVED 0
+                SAVED {saved.length}
               </a>
             </div>
           </div>
